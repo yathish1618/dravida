@@ -1,28 +1,16 @@
-import 'package:flutter/material.dart';
-import 'home_screen.dart';
-import 'alphabet_quiz_screen.dart';
+import 'package:flutter/material.dart';  // Add this import
+import 'screens/home_screen.dart';       // Add this import
 
-void main() {
-  runApp(const DravidaApp());
-}
+void main() => runApp(const MyApp());
 
-class DravidaApp extends StatelessWidget {
-  const DravidaApp({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);  // Fix constructor syntax
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Dravida',
-      theme: ThemeData(
-        primaryColor: const Color(0xFFFFC107),
-        fontFamily: 'NotoSerifKannada', // Add this font later
-      ),
-      initialRoute: '/',
-      routes: {
-        '/': (context) => const HomeScreen(),
-        '/alphabetModule': (context) => const AlphabetQuizScreen(),
-        // Add other routes here later
-      },
+      title: 'Kannada Learning',
+      home: HomeScreen(),
     );
   }
 }
