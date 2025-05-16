@@ -1,0 +1,172 @@
+[
+  {
+    "letter": "ಅ",
+    "transliteration": "a",
+    "correctAnswer": "ಅ",
+    "options": ["ಅ", "ಆ", "ಇ", "ಉ"],
+    "hint": "First vowel in Kannada",
+    "exampleWord": "ಅಮ್ಮ (amma) - Mother",
+    "audio": null,
+    "exampleImage": null
+  },
+  {
+    "letter": "ಆ",
+    "transliteration": "aa",
+    "correctAnswer": "ಆ",
+    "options": ["ಅ", "ಆ", "ಇ", "ಈ"],
+    "hint": "Second vowel",
+    "exampleWord": "ಆನೆ (aane) - Elephant",
+    "audio": null,
+    "exampleImage": null
+  },
+  {
+    "letter": "ಇ",
+    "transliteration": "i",
+    "correctAnswer": "ಇ",
+    "options": ["ಇ", "ಈ", "ಉ", "ಊ"],
+    "hint": "Third vowel",
+    "exampleWord": "ಇಲಿ (ili) - Rat",
+    "audio": null,
+    "exampleImage": null
+  },
+  {
+    "letter": "ಈ",
+    "transliteration": "ii",
+    "correctAnswer": "ಈ",
+    "options": ["ಇ", "ಈ", "ಉ", "ಊ"],
+    "hint": "Long i vowel",
+    "exampleWord": "ಈಗು (eegu) - To flow",
+    "audio": null,
+    "exampleImage": null
+  },
+  {
+    "letter": "ಉ",
+    "transliteration": "u",
+    "correctAnswer": "ಉ",
+    "options": ["ಉ", "ಊ", "ಎ", "ಏ"],
+    "hint": "Fifth vowel",
+    "exampleWord": "ಉಡುಪು (udupu) - Clothes",
+    "audio": null,
+    "exampleImage": null
+  },
+  {
+    "letter": "ಊ",
+    "transliteration": "uu",
+    "correctAnswer": "ಊ",
+    "options": ["ಉ", "ಊ", "ಎ", "ಏ"],
+    "hint": "Long u vowel",
+    "exampleWord": "ಊಟ (oota) - Food",
+    "audio": null,
+    "exampleImage": null
+  },
+  {
+    "letter": "ಎ",
+    "transliteration": "e",
+    "correctAnswer": "ಎ",
+    "options": ["ಎ", "ಏ", "ಐ", "ಒ"],
+    "hint": "Seventh vowel",
+    "exampleWord": "ಎಲೆ (ele) - Leaf",
+    "audio": null,
+    "exampleImage": null
+  },
+  {
+    "letter": "ಏ",
+    "transliteration": "ee",
+    "correctAnswer": "ಏ",
+    "options": ["ಎ", "ಏ", "ಐ", "ಒ"],
+    "hint": "Long e vowel",
+    "exampleWord": "ಏನು (enu) - What",
+    "audio": null,
+    "exampleImage": null
+  },
+  {
+    "letter": "ಐ",
+    "transliteration": "ai",
+    "correctAnswer": "ಐ",
+    "options": ["ಐ", "ಒ", "ಓ", "ಔ"],
+    "hint": "Diphthong vowel",
+    "exampleWord": "ಐಸ್ (ais) - Ice",
+    "audio": null,
+    "exampleImage": null
+  },
+  {
+    "letter": "ಒ",
+    "transliteration": "o",
+    "correctAnswer": "ಒ",
+    "options": ["ಒ", "ಓ", "ಔ", "ಅ"],
+    "hint": "Tenth vowel",
+    "exampleWord": "ಒಂದು (ondu) - One",
+    "audio": null,
+    "exampleImage": null
+  },
+  {
+    "letter": "ಓ",
+    "transliteration": "oo",
+    "correctAnswer": "ಓ",
+    "options": ["ಒ", "ಓ", "ಔ", "ಅ"],
+    "hint": "Long o vowel",
+    "exampleWord": "ಓಟ (ota) - Run",
+    "audio": null,
+    "exampleImage": null
+  },
+  {
+    "letter": "ಔ",
+    "transliteration": "au",
+    "correctAnswer": "ಔ",
+    "options": ["ಔ", "ಅ", "ಇ", "ಉ"],
+    "hint": "Diphthong vowel",
+    "exampleWord": "ಔಷಧಿ (aushadhi) - Medicine",
+    "audio": null,
+    "exampleImage": null
+  },
+  {
+    "letter": "ಕ",
+    "transliteration": "ka",
+    "correctAnswer": "ಕ",
+    "options": ["ಕ", "ಖ", "ಗ", "ಚ"],
+    "hint": "First consonant",
+    "exampleWord": "ಕಮಲ (kamala) - Lotus",
+    "audio": null,
+    "exampleImage": null
+  },
+  {
+    "letter": "ಖ",
+    "transliteration": "kha",
+    "correctAnswer": "ಖ",
+    "options": ["ಕ", "ಖ", "ಗ", "ಚ"],
+    "hint": "Aspirated consonant",
+    "exampleWord": "ಖಡ್ಗ (khadga) - Sword",
+    "audio": null,
+    "exampleImage": null
+  },
+  {
+    "letter": "ಗ",
+    "transliteration": "ga",
+    "correctAnswer": "ಗ",
+    "options": ["ಕ", "ಖ", "ಗ", "ಚ"],
+    "hint": "Velar consonant",
+    "exampleWord": "ಗಡಿ (gadi) - Boundary",
+    "audio": null,
+    "exampleImage": null
+  },
+  {
+    "letter": "ಘ",
+    "transliteration": "gha",
+    "correctAnswer": "ಘ",
+    "options": ["ಗ", "ಘ", "ಚ", "ಜ"],
+    "hint": "Aspirated consonant",
+    "exampleWord": "ಘಟ (ghata) - Pot",
+    "audio": null,
+    "exampleImage": null
+  },
+  {
+    "letter": "ಚ",
+    "transliteration": "cha",
+    "correctAnswer": "ಚ",
+    "options": ["ಚ", "ಛ", "ಜ", "ಟ"],
+    "hint": "Palatal consonant",
+    "exampleWord": "ಚಂದನ (chandana) - Sandalwood",
+    "audio": null,
+    "exampleImage": null
+  }
+]
