@@ -13,7 +13,20 @@ class ApiService {
     );
     
     final jsonData = jsonDecode(response.body);
-    return (jsonData['data'] as List).map((m) => Module.fromJson(m)).toList();
+    return (jsonData['data'] as List).map((m) {
+      // Sort levels inside each module by 'order' field before extracting IDs
+      final levels = (m['levels'] as List);
+      levels.sort((a, b) {
+        final aOrder = a['order'] ?? 0;
+        final bOrder = b['order'] ?? 0;
+        return aOrder.compareTo(bOrder);
+      });
+
+      // Update the module's levels to this sorted list
+      m['levels'] = levels;
+
+      return Module.fromJson(m);
+    }).toList();
   }
 
   // Get single level with items

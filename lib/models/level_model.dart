@@ -4,11 +4,13 @@ import 'unknown_item.dart';
 class Level {
   final String id;
   final String title;
+  final int order; // Added this line
   final List<ContentItem> items;
 
   Level({
     required this.id,
     required this.title,
+    required this.order, // Added this line
     required this.items,
   });
 
@@ -30,6 +32,7 @@ class Level {
     return Level(
       id: levelData['id'].toString(),
       title: levelData['title'] ?? 'Untitled',
+      order: levelData['order'] ?? 0, // Added this line
       items: items,
     );
   }
