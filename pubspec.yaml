@@ -37,6 +37,7 @@ dependencies:
   http: ^1.4.0
   shared_preferences: ^2.2.2
   flutter_html: ^3.0.0-beta.2  # For rendering rich text
+  google_fonts: ^6.1.0
 
 dev_dependencies:
   flutter_test:

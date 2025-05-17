@@ -19,15 +19,24 @@ class LevelList extends StatelessWidget {
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               final level = snapshot.data!;
-              return ListTile(
-                title: Text(level.title),
-                onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => LevelScreen(level: level),
+              return Card(
+                child: InkWell(
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => LevelScreen(level: level),
+                    ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Text(
+                      level.title,
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
                   ),
                 ),
               );
+
             }
             return const ListTile(title: Text('Loading...'));
           },

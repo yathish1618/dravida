@@ -13,15 +13,24 @@ class ModuleList extends StatelessWidget {
       itemCount: modules.length,
       itemBuilder: (context, index) {
         final module = modules[index];
-        return ListTile(
-          title: Text(module.name),
-          onTap: () => Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (_) => ModuleScreen(module: module),
+        return Card(
+          child: InkWell(
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => ModuleScreen(module: module),
+              ),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(24.0),
+              child: Text(
+                module.name,
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
             ),
           ),
         );
+
       },
     );
   }

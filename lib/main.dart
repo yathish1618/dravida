@@ -1,16 +1,21 @@
-import 'package:flutter/material.dart';  // Add this import
-import 'screens/home_screen.dart';       // Add this import
+import 'package:flutter/material.dart';
+import 'screens/home_screen.dart';
+import 'theme/app_theme.dart'; // Import our new theme
 
-void main() => runApp(const MyApp());
+void main() {
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);  // Fix constructor syntax
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Kannada Learning',
-      home: HomeScreen(),
+      title: 'Dravida - Learn Kannada',
+      debugShowCheckedModeBanner: false, // Remove debug banner
+      theme: AppTheme.getThemeData(), // Use our custom theme
+      home: const HomeScreen(),
     );
   }
 }

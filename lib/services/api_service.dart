@@ -4,7 +4,7 @@ import '../models/module_model.dart';
 import '../models/level_model.dart';
 
 class ApiService {
-  static const String _baseUrl = 'http://10.0.2.2:1337/api';
+  static const String _baseUrl = 'http://192.168.0.103:1337/api';
 
   // Get all modules
   static Future<List<Module>> getModules() async {
