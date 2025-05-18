@@ -2,14 +2,6 @@
 
 Dravida is a mobile application designed to teach Kannada language through an interactive learning experience. Built with Flutter for the frontend and Strapi for content management, this app offers a structured approach to learning Kannada alphabets and more.
 
-## 🌟 Features
-
-- **Modular Learning Path**: Organized into modules, levels, and content items for progressive learning
-- **Interactive Content Types**: Various learning activities including letter cards, multiple-choice questions, and more
-- **Progress Tracking**: Keep track of your learning journey
-- **User Authentication**: Secure login and registration system
-- **Responsive Design**: Works on various Android devices
-
 ## 📱 App Structure
 
 The app follows a hierarchical structure:
@@ -25,43 +17,6 @@ The app follows a hierarchical structure:
 - Android Studio / VS Code
 - Node.js (for Strapi CMS)
 - Git
-
-### Installation
-
-#### Frontend (Flutter)
-
-1. Clone the repository:
-```bash
-git clone https://github.com/yathish1618/dravida.git
-cd dravida
-```
-
-2. Install dependencies:
-```bash
-flutter pub get
-```
-
-3. Run the app:
-```bash
-flutter run
-```
-
-#### Backend (Strapi CMS)
-
-1. Navigate to the backend directory:
-```bash
-cd backend
-```
-
-2. Install dependencies:
-```bash
-npm install
-```
-
-3. Start the Strapi server:
-```bash
-npm run develop
-```
 
 ## 🧩 Project Structure
 
