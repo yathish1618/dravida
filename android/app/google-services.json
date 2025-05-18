@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "519353208327",
+    "project_id": "dravida-99dda",
+    "storage_bucket": "dravida-99dda.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:519353208327:android:b8e4ebf2d034ed891e64a2",
+        "android_client_info": {
+          "package_name": "com.example.dravida"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "519353208327-g12b2ef6rcad46mjbspn454t8ehrlj42.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9rSyRhkBbLcTTVa-FaqoTB_2RprBJiS4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "519353208327-g12b2ef6rcad46mjbspn454t8ehrlj42.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
