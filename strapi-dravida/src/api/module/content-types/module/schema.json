@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "modules",
+  "info": {
+    "singularName": "module",
+    "pluralName": "modules",
+    "displayName": "Module",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "levels": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::level.level"
+    },
+    "order": {
+      "type": "integer"
+    }
+  }
+}

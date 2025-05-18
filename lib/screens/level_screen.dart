@@ -1,50 +1,107 @@
 import 'package:flutter/material.dart';
-import '../models/level_model.dart';
-import '../models/letter_card_item.dart';
-import '../models/mcq_question_item.dart'; // If you create one
-import '../widgets/letter_card.dart';
-// import '../widgets/mcq_question_widget.dart'; // Optional future widget
+import '../services/strapi_service.dart';
+import '../services/firebase_progress_service.dart';
+import '../widgets/bottom_nav_bar.dart';
 
-class LevelScreen extends StatelessWidget {
-  final Level level;
+class LevelScreen extends StatefulWidget {
+  final String moduleId;
+  const LevelScreen({super.key, required this.moduleId});
 
-  const LevelScreen({super.key, required this.level});
+  @override
+  _LevelScreenState createState() => _LevelScreenState();
+}
+
+class _LevelScreenState extends State<LevelScreen> {
+  final StrapiService _strapiService = StrapiService();
+  final FirebaseProgressService _progressService = FirebaseProgressService();
+  List<Map<String, dynamic>> _levels = [];
+  Map<String, dynamic> _progress = {};
+  String moduleId = "";
+
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchLevels();
+    _fetchProgress();
+  }
+
+  void _fetchLevels() async {
+    final levels = await _strapiService.fetchLevels(widget.moduleId);
+    levels.sort((a, b) => (a["order"] ?? 0).compareTo(b["order"] ?? 0));
+    setState(() => _levels = levels);
+  }
+
+  void _fetchProgress() async {
+    final progress = await _progressService.fetchProgress();
+    setState(() => _progress = progress);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final args = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;  
+    moduleId = args?["moduleId"] ?? ""; // Retrieve moduleId safely
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(level.title)),
-      body: ListView.builder(
-        itemCount: level.items.length,
-        itemBuilder: (context, index) {
-          final item = level.items[index];
+      appBar: AppBar(title: const Text("Levels")),
+      body: _levels.isEmpty
+          ? const Center(child: CircularProgressIndicator())
+          : ListView.builder(
+              itemCount: _levels.length,
+              itemBuilder: (context, index) {
+                final level = _levels[index];
+                final levelId = level["id"].toString();
+                final unlocked = _progress["modules"]?[widget.moduleId]?["levels"]?[levelId]?["unlocked"] ?? (index == 0);
+                final progress = (_progress["modules"]?[widget.moduleId]?["levels"]?[levelId]?["progress"] ?? 0).toDouble();
 
-          if (item is LetterCardItem) {
-            return LetterCard(
-              letter: item.letter,
-              audioUrl: item.audio ?? '',
-              imageUrl: item.image ?? '',
-            );
-          }
+                return _buildLevelCard(level, unlocked, progress);
+              },
+            ),
+      bottomNavigationBar: BottomNavBar(
+        currentIndex: 1, // Modules tab (since levels belong to a module)
+        onTap: (index) => _handleNavigation(context, index),
+      ),
 
-          // Add support for other item types
-          else if (item is McqQuestionItem) {
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text('MCQ: ${item.question}'), // Placeholder
-              // return McqQuestionWidget(questionItem: item); <-- future widget
-            );
-          }
+    );
+  }
 
-          // Fallback for unknown or unhandled types
-          else {
-            return const ListTile(
-              title: Text('Unsupported item type'),
-              subtitle: Text('This item type is not yet implemented.'),
-            );
-          }
-        },
+  Widget _buildLevelCard(Map<String, dynamic> level, bool unlocked, double progress) {
+    return Card(
+      elevation: 3,
+      margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+      child: ListTile(
+        leading: SizedBox(
+          width: 50,
+          height: 50,
+          child: CircularProgressIndicator(
+            value: progress / 100,
+            backgroundColor: Colors.grey[300],
+            color: unlocked ? Colors.blueAccent : Colors.grey,
+            strokeWidth: 6,
+          ),
+        ),
+        title: Text(level["title"], style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+        subtitle: Text(level["description"]),
+        trailing: unlocked ? Text("${progress.toInt()}%", style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)) : const Icon(Icons.lock, color: Colors.red),
+        onTap: unlocked ? () => Navigator.pushNamed(
+          context, "/items",
+          arguments: {"levelId": level["id"].toString(), "moduleId": widget.moduleId},
+        ) : null,
       ),
     );
+  }
+
+  void _handleNavigation(BuildContext context, int index) {
+    if (index == 0) {
+      Navigator.pushNamed(context, "/home"); // Redirect to Home
+    } else if (index == 1) {
+      Navigator.pushNamed(context, "/modules"); // Redirect to Modules
+    } else if (index == 2) {
+      Navigator.pushNamed(context, "/settings"); // Redirect to Settings
+    }
   }
 }

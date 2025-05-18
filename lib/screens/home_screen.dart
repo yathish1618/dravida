@@ -1,26 +1,44 @@
 import 'package:flutter/material.dart';
-import '../services/api_service.dart';
-import '../models/module_model.dart';
-import '../widgets/module_list.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  final User? user = FirebaseAuth.instance.currentUser;
+  bool _isVisible = true; // Controls opacity
+
+  @override
+  void initState() {
+    super.initState();
+    
+    Future.delayed(const Duration(seconds: 2), () {
+      setState(() {
+        _isVisible = false;
+      });
+
+      Future.delayed(const Duration(milliseconds: 500), () {
+        Navigator.pushReplacementNamed(context, "/modules"); // Ensure "/modules" is recognized
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Learn Kannada')),
-      body: FutureBuilder<List<Module>>(
-        future: ApiService.getModules(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
-          }
-          return ModuleList(modules: snapshot.data!);
-        },
+      body: Center(
+        child: AnimatedOpacity(
+          duration: const Duration(milliseconds: 500), // Animation speed
+          opacity: _isVisible ? 1.0 : 0.0, // Fade effect
+          child: Text(
+            "Hello, ${user?.displayName ?? 'Explorer'}!",
+            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          ),
+        ),
       ),
     );
   }
