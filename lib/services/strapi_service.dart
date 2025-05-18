@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class StrapiService {
-  final String baseUrl = "http://192.168.0.103:1337/api";
+  final String baseUrl = "https://strapi-production-2cfc.up.railway.app/api";
 
   // Fetch Modules
   Future<List<Map<String, dynamic>>> fetchModules() async {
