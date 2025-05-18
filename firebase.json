@@ -1,1 +1,29 @@
-{"flutter":{"platforms":{"android":{"default":{"projectId":"dravida-99dda","appId":"1:519353208327:android:b8e4ebf2d034ed891e64a2","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"dravida-99dda","configurations":{"android":"1:519353208327:android:b8e4ebf2d034ed891e64a2","ios":"1:519353208327:ios:3ec4ae51191dc6b81e64a2","macos":"1:519353208327:ios:3ec4ae51191dc6b81e64a2","web":"1:519353208327:web:05ae8cd19c886f841e64a2","windows":"1:519353208327:web:5732fd117373c2431e64a2"}}}}}}
+{
+  "hosting": {
+    "public": "build/web",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
+  },
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "dravida-99dda",
+          "appId": "1:519353208327:android:b8e4ebf2d034ed891e64a2",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "dravida-99dda",
+          "configurations": {
+            "android": "1:519353208327:android:b8e4ebf2d034ed891e64a2",
+            "ios": "1:519353208327:ios:3ec4ae51191dc6b81e64a2",
+            "macos": "1:519353208327:ios:3ec4ae51191dc6b81e64a2",
+            "web": "1:519353208327:web:05ae8cd19c886f841e64a2",
+            "windows": "1:519353208327:web:5732fd117373c2431e64a2"
+          }
+        }
+      }
+    }
+  }
+}

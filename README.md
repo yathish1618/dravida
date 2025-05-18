@@ -46,3 +46,8 @@ lib/
 │   ├── level_list.dart
 │   ├── mcq_question_widget.dart
 │   └── module_list.dart
+
+
+
+flutter build web
+firebase deploy --only "hosting"

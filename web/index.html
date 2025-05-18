@@ -36,5 +36,25 @@
 </head>
 <body>
   <script src="flutter_bootstrap.js" async></script>
+  <script type="module">
+    // Import Firebase SDK
+    import { initializeApp } from "firebase/app";
+    import { getAnalytics } from "firebase/analytics";
+
+    // Your Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyAGg-8Sh-W3e_0qeR15Z5yVbyFH9QAeTcM",
+      authDomain: "dravida-99dda.firebaseapp.com",
+      projectId: "dravida-99dda",
+      storageBucket: "dravida-99dda.firebasestorage.app",
+      messagingSenderId: "519353208327",
+      appId: "1:519353208327:web:05ae8cd19c886f841e64a2",
+      measurementId: "G-EYQ2WT10DB"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+  </script>
 </body>
 </html>
