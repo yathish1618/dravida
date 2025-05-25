@@ -26,18 +26,86 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
-     inkscape:zoom="1.4378367"
-     inkscape:cx="251.76712"
-     inkscape:cy="270.19758"
+     inkscape:zoom="1.0167041"
+     inkscape:cx="201.14014"
+     inkscape:cy="289.66147"
      inkscape:window-width="1920"
      inkscape:window-height="1009"
      inkscape:window-x="-8"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
-     inkscape:current-layer="svg1"
+     inkscape:current-layer="layer1"
      showgrid="false" />
   <defs
      id="defs1">
+    <inkscape:path-effect
+       effect="fillet_chamfer"
+       id="path-effect1"
+       is_visible="true"
+       lpeversion="1"
+       nodesatellites_param="F,0,0,1,0,85,0,1 @ F,0,0,1,0,85,0,1 @ F,0,0,1,0,85,0,1 @ F,0,0,1,0,85,0,1"
+       radius="85"
+       unit="px"
+       method="auto"
+       mode="F"
+       chamfer_steps="1"
+       flexible="false"
+       use_knot_distance="true"
+       apply_no_radius="true"
+       apply_with_radius="true"
+       only_selected="false"
+       hide_knots="false" />
+    <inkscape:path-effect
+       effect="lattice2"
+       gridpoint0="44.72509,174.11902"
+       gridpoint1="469.45181,174.11902"
+       gridpoint2="44.72509,329.37483"
+       gridpoint3="469.45181,329.37483"
+       gridpoint4="150.90677,174.11902"
+       gridpoint5="363.27013,174.11902"
+       gridpoint6="150.90677,329.37483"
+       gridpoint7="363.27013,329.37483"
+       gridpoint8x9="257.08845,174.11902"
+       gridpoint10x11="257.08845,329.37483"
+       gridpoint12="44.72509,212.93297"
+       gridpoint13="469.45181,212.93297"
+       gridpoint14="44.72509,290.56088"
+       gridpoint15="469.45181,290.56088"
+       gridpoint16="150.90677,212.93297"
+       gridpoint17="363.27013,212.93297"
+       gridpoint18="150.90677,290.56088"
+       gridpoint19="363.27013,290.56088"
+       gridpoint20x21="257.08845,212.93297"
+       gridpoint22x23="257.08845,290.56088"
+       gridpoint24x26="44.72509,251.74693"
+       gridpoint25x27="469.45181,251.74693"
+       gridpoint28x30="150.90677,251.74693"
+       gridpoint29x31="363.27013,251.74693"
+       gridpoint32x33x34x35="257.08845,251.74693"
+       id="path-effect9"
+       is_visible="true"
+       lpeversion="1"
+       horizontal_mirror="false"
+       vertical_mirror="false"
+       perimetral="false"
+       live_update="true" />
+    <inkscape:path-effect
+       effect="fillet_chamfer"
+       id="path-effect7"
+       is_visible="true"
+       lpeversion="1"
+       nodesatellites_param="F,0,0,1,0,10,0,1 @ F,0,0,1,0,10,0,1 @ F,0,0,1,0,10,0,1 @ F,0,0,1,0,10,0,1"
+       radius="10"
+       unit="px"
+       method="auto"
+       mode="F"
+       chamfer_steps="1"
+       flexible="false"
+       use_knot_distance="true"
+       apply_no_radius="true"
+       apply_with_radius="true"
+       only_selected="false"
+       hide_knots="false" />
     <rect
        x="0"
        y="15.300764"
@@ -46,51 +114,49 @@
        id="rect4" />
     <rect
        x="0"
-       y="426.33492"
+       y="426.33493"
        width="512"
-       height="85.665076"
+       height="85.665077"
        id="rect3" />
     <rect
        x="0"
-       y="433.28982"
+       y="433.28983"
        width="512"
-       height="78.710183"
+       height="78.710182"
        id="rect2" />
     <rect
-       x="55.639142"
-       y="431.20335"
-       width="456.36086"
-       height="80.796651"
+       x="55.639141"
+       y="431.20334"
+       width="456.36087"
+       height="80.796654"
        id="rect1" />
   </defs>
   <g
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
-     id="layer1">
-    <ellipse
-       style="fill:#f4c300;stroke-width:3;fill-opacity:1;stroke:none;stroke-opacity:1;stroke-dasharray:none"
-       id="path1"
-       cx="256"
-       cy="204.93166"
-       rx="187.02667"
-       ry="182.0448" />
-    <text
-       xml:space="preserve"
-       id="text2"
-       style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;font-size:74.6667px;line-height:1.1;font-family:'Noto Serif Kannada';-inkscape-font-specification:'Noto Serif Kannada Heavy';text-align:center;letter-spacing:0px;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect3);display:inline;fill:#4a2c1a;fill-opacity:1;stroke-width:2.66457"
-       transform="matrix(1.2454683,0,0,1.2122924,-62.839889,-83.41521)"><tspan
-         x="101.25338"
-         y="472.00973"
-         id="tspan3">dravida</tspan></text>
-    <text
-       xml:space="preserve"
+     id="layer1"
+     transform="translate(1102.5823,42.293525)">
+    <rect
+       style="display:none;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:7.3852;stroke-linecap:round;stroke-linejoin:bevel;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers"
+       id="rect9"
+       width="512"
+       height="512"
+       x="-1102.5823"
+       y="-42.293526" />
+    <path
+       style="display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:22.6062;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:fill markers stroke"
+       id="rect7-5"
+       width="513.03387"
+       height="512"
+       x="-1102.5823"
+       y="-469.70648"
+       sodipodi:type="rect"
+       transform="scale(1,-1)"
+       inkscape:path-effect="#path-effect1"
+       d="m -1017.5823,-469.70648 h 343.0339 a 85,85 45 0 1 85,85 v 341.999998 a 85,85 135 0 1 -85,85 h -343.0339 a 85,85 45 0 1 -85,-85 V -384.70648 a 85,85 135 0 1 85,-85 z" />
+    <path
        id="text3"
-       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:245.333px;line-height:1.1;font-family:'Noto Serif';-inkscape-font-specification:'Noto Serif Bold';text-align:center;letter-spacing:0px;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect4);shape-padding:0;display:inline;fill:#4a2c1a;fill-opacity:1;stroke-width:2.66457"
-       transform="matrix(1.2454683,0,0,1.2122924,-72.803635,35.210711)"><tspan
-         x="163.87753"
-         y="220.22599"
-         id="tspan5"><tspan
-           style="font-family:'Noto Serif Kannada';-inkscape-font-specification:'Noto Serif Kannada Bold'"
-           id="tspan4">ದ</tspan></tspan></text>
+       style="font-size:245.333px;line-height:1;font-family:'Libre Barcode 128';-inkscape-font-specification:'Libre Barcode 128, ';text-align:center;letter-spacing:0px;text-anchor:middle;fill:#ffff00;stroke-width:12.5314;stroke-linecap:round;stroke-linejoin:bevel;paint-order:stroke fill markers"
+       d="m -1033.9114,50.729565 c -9.4359,9.99092 -16.6523,20.815695 -21.6478,32.471775 -5.273,11.65607 -7.9108,23.86811 -7.9108,36.63429 0,7.49319 0.9737,14.98651 2.9164,22.47971 1.9427,7.21566 5.9645,13.87527 12.07,19.98083 5.2731,5.27298 12.4896,9.57487 21.6479,12.90517 4.7056,1.76462 11.0366,3.02805 18.7811,3.85764 -16.2048,8.41543 -29.1386,19.88209 -38.762,34.44036 -11.101,16.09649 -16.6534,35.66178 -16.6534,58.6964 0,18.59424 4.3018,35.93855 12.9053,52.03505 8.6032,15.81894 20.9553,28.58791 37.0518,38.30131 15.81884,9.43588 35.1074,14.15129 57.86461,14.15129 22.4795,0 41.90475,-4.43865 58.27874,-13.31945 16.0965,-9.15837 28.5853,-21.6472 37.46613,-37.46617 8.88082,-15.81895 13.31945,-33.72017 13.31945,-53.70203 0,-23.03461 -5.40905,-42.59991 -16.23255,-58.6964 -9.43669,-13.9191 -21.8126,-24.99978 -37.06512,-33.30361 h 47.41512 7.96714 51.21643 c -15.25251,8.30383 -27.62845,19.38452 -37.06513,33.30361 -10.82351,16.0965 -16.23589,35.66179 -16.23589,58.6964 0,19.98187 4.44197,37.88309 13.32279,53.70203 8.88082,15.81897 21.36964,28.3078 37.46613,37.46617 16.374,8.8808 35.79925,13.31945 58.27884,13.31945 22.75709,0 42.04561,-4.7154 57.86456,-14.15129 16.09649,-9.7134 28.44858,-22.48236 37.05188,-38.30131 8.60329,-16.0965 12.9052,-33.44081 12.9052,-52.03505 0,-23.03461 -5.55246,-42.59991 -16.65348,-58.6964 -9.62326,-14.55827 -22.55706,-26.02493 -38.76196,-34.44034 7.74441,-0.82961 14.07549,-2.09304 18.78112,-3.85764 9.15836,-3.33032 16.37486,-7.63221 21.64784,-12.90518 6.10559,-6.10555 10.12737,-12.76517 12.07005,-19.98084 1.94268,-7.49318 2.91643,-14.98652 2.91643,-22.47971 0,-12.76618 -2.63783,-24.97822 -7.91081,-36.63429 -4.99545,-11.65608 -12.21199,-22.480855 -21.64786,-32.471775 l -14.98645,11.241501 c 7.49318,7.770714 13.18238,15.817614 17.06773,24.143394 3.88535,8.04823 5.82953,16.09844 5.82953,24.14667 0,10.54597 -3.1914,18.59287 -9.57448,24.1434 -3.88537,3.33032 -9.15769,5.82807 -15.81831,7.49322 -6.66062,1.38762 -16.93179,2.08127 -30.80808,2.08127 h -137.8774 -11.21167 -128.9889 c -13.87634,0 -24.14743,-0.69365 -30.80813,-2.08127 -6.6606,-1.66515 -11.9328,-4.1629 -15.8182,-7.49322 -6.3831,-5.55051 -9.5745,-13.59743 -9.5745,-24.1434 0,-8.04823 1.9442,-16.09844 5.8294,-24.14667 3.8854,-8.32578 9.5747,-16.37268 17.0678,-24.143394 z m 78.6773,129.051885 c 15.26389,0 29.0033,3.60497 41.21442,10.82062 11.9336,7.21567 21.36776,16.7932 28.30591,28.72679 6.93813,11.93362 10.40632,25.11611 10.40632,39.54743 0,13.87631 -3.05136,26.77866 -9.15691,38.71227 -6.10555,11.9336 -14.98613,21.50783 -26.64222,28.72348 -11.93359,7.21567 -26.64341,10.82391 -44.12752,10.82391 -17.48414,0 -32.19396,-3.46818 -44.1276,-10.40633 -11.9335,-7.21567 -20.8141,-16.7899 -26.6421,-28.72351 -6.1057,-11.9336 -9.1569,-24.97603 -9.1569,-39.12984 0,-14.70885 3.4681,-28.03138 10.4063,-39.96498 6.9382,-11.93361 16.3756,-21.37109 28.30922,-28.30922 11.93363,-7.21565 25.66965,-10.82062 41.21108,-10.82062 z m 217.30363,0 c 15.54143,0 29.2775,3.60497 41.2111,10.82062 11.9336,6.93813 21.37109,16.37561 28.30922,28.30922 6.93815,11.9336 10.40634,25.25613 10.40634,39.96498 0,14.15381 -3.05134,27.19624 -9.15691,39.12984 -5.82804,11.93361 -14.70862,21.50784 -26.64222,28.72351 -11.93361,6.93813 -26.64341,10.40633 -44.12753,10.40633 -17.48413,0 -32.19393,-3.60825 -44.12754,-10.82391 -11.65607,-7.21565 -20.53665,-16.78988 -26.64222,-28.72348 -6.10555,-11.93361 -9.15692,-24.83598 -9.15692,-38.71227 0,-14.43132 3.4682,-27.61381 10.40633,-39.54743 6.93816,-11.93359 16.37231,-21.51111 28.30592,-28.72678 12.21112,-7.21566 25.95052,-10.82061 41.21443,-10.82063 z m -216.88604,53.28446 c -7.2156,0 -13.04489,2.21765 -17.48532,6.65809 -4.44044,4.16287 -6.66142,9.71532 -6.66142,16.65344 0,6.3831 2.22098,11.79546 6.66142,16.2359 4.44043,4.44042 10.26972,6.65807 17.48532,6.65807 6.93817,0 12.62731,-2.21765 17.06771,-6.65807 4.16288,-4.44044 6.24381,-9.8528 6.24381,-16.2359 0,-6.66062 -2.08093,-12.21304 -6.24381,-16.65344 -4.4404,-4.44044 -10.12954,-6.65809 -17.06771,-6.65809 z m 216.46845,0 c -6.93816,0 -12.62732,2.21765 -17.06772,6.65809 -4.16289,4.44042 -6.24381,9.99282 -6.24381,16.65344 0,6.3831 2.08092,11.79546 6.24381,16.2359 4.4404,4.44042 10.12956,6.65807 17.06772,6.65807 7.21566,0 13.0449,-2.21765 17.48531,-6.65807 4.44041,-4.44044 6.66138,-9.8528 6.66138,-16.2359 0,-6.93812 -2.22097,-12.49057 -6.66138,-16.65344 -4.44041,-4.44044 -10.26965,-6.65809 -17.48531,-6.65809 z" />
   </g>
 </svg>

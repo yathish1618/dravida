@@ -24,20 +24,17 @@ class StrapiService {
   Future<List<Map<String, dynamic>>> fetchLevels(String moduleId) async {
     List<Map<String, dynamic>> allLevels = [];
     int page = 1;
-    const int pageSize = 50; // Adjust based on your data size
+    const int pageSize = 50;
 
     try {
       while (true) {
         final response = await http.get(Uri.parse("$baseUrl/levels?filters[module][id]=$moduleId&populate=*&sort=order:asc&pagination[page]=$page&pagination[pageSize]=$pageSize"));
-        
         if (response.statusCode == 200) {
           final data = json.decode(response.body);
           final List<Map<String, dynamic>> levels = List<Map<String, dynamic>>.from(data["data"]);
-          
-          if (levels.isEmpty) break; // Stop if no more data
-
+          if (levels.isEmpty) break;
           allLevels.addAll(levels);
-          page++; // Go to the next page
+          page++;
         } else {
           throw Exception("Failed to fetch levels");
         }
@@ -68,6 +65,22 @@ class StrapiService {
       }
     } catch (e) {
       print("Error fetching items: $e");
+      return [];
+    }
+  }
+
+  // ✅ Fetch Flashcards With Populated Audio
+  Future<List<Map<String, dynamic>>> fetchFlashcardsWithAudio() async {
+    try {
+      final response = await http.get(Uri.parse("$baseUrl/item-flashcards?populate=audio"));
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        return List<Map<String, dynamic>>.from(data["data"]);
+      } else {
+        throw Exception("Failed to fetch flashcards with audio");
+      }
+    } catch (e) {
+      print("❌ Error fetching flashcard audio: $e");
       return [];
     }
   }
