@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../services/strapi_service.dart';
 import '../services/firebase_progress_service.dart';
+import '../widgets/flashcard_widget.dart';
 
 class ItemScreen extends StatefulWidget {
   final String levelId;
@@ -14,6 +15,7 @@ class ItemScreen extends StatefulWidget {
 class _ItemScreenState extends State<ItemScreen> {
   final StrapiService _strapiService = StrapiService();
   final FirebaseProgressService _progressService = FirebaseProgressService();
+  
   List<Map<String, dynamic>> _items = [];
   int _currentIndex = 0;
 
@@ -25,23 +27,33 @@ class _ItemScreenState extends State<ItemScreen> {
 
   void _fetchItems() async {
     final items = await _strapiService.fetchItems(widget.levelId);
+    final flashcards = await _strapiService.fetchFlashcardsWithAudio();
+
     items.sort((a, b) => (a["order"] ?? 0).compareTo(b["order"] ?? 0));
-    setState(() => _items = items);
+
+    for (var item in items) {
+      if (item["type"] == "flashcard") {
+        final flashcard = flashcards.firstWhere(
+          (fc) => fc["letter"] == item["data"]["letter"],
+          orElse: () => {},
+        );
+        item["data"]["audio"] = flashcard["audio"];  // ✅ Correctly assign audio
+      }
+    }
+
+    setState(() {
+      _items = items;
+    });
   }
 
   void _nextItem() async {
     if (_currentIndex < _items.length - 1) {
-      setState(() => _currentIndex++);
-    } else {
-      print("🔹 Last item reached. Calling updateLevelProgress...");
-
-      await _progressService.updateLevelProgress(widget.moduleId, widget.levelId, _items.length, _items.length);
-
-      print("✅ Firestore update should be completed. Navigating to Level Screen...");
-
-      Future.delayed(const Duration(milliseconds: 500), () {
-        Navigator.pushReplacementNamed(context, "/levels", arguments: {"moduleId": widget.moduleId});
+      setState(() {
+        _currentIndex++;
       });
+    } else {
+      await _progressService.updateLevelProgress(widget.moduleId, widget.levelId, _items.length, _items.length);
+      Navigator.pushReplacementNamed(context, "/levels", arguments: {"moduleId": widget.moduleId});
     }
   }
 
@@ -53,8 +65,8 @@ class _ItemScreenState extends State<ItemScreen> {
       appBar: AppBar(title: const Text("Learning Session")),
       body: Column(
         children: [
-          _buildProgressIndicator(), // Always at the top
-          Expanded(child: _renderItem(_items[_currentIndex])), // Centered content
+          _buildProgressIndicator(),
+          Expanded(child: _renderItem(_items[_currentIndex])),
           Padding(
             padding: const EdgeInsets.only(bottom: 20),
             child: ElevatedButton(
@@ -76,10 +88,10 @@ class _ItemScreenState extends State<ItemScreen> {
             Container(
               height: 5,
               width: MediaQuery.of(context).size.width * 0.9,
-              color: Colors.blueAccent, // Line connecting beads
+              color: Colors.blueAccent,
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween, // Ensures beads are at extremes
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: List.generate(_items.length, (index) {
                 return Container(
                   width: 20,
@@ -98,18 +110,11 @@ class _ItemScreenState extends State<ItemScreen> {
     );
   }
 
+  // ✅ Dynamically handle multiple item types
   Widget _renderItem(Map<String, dynamic> item) {
     switch (item["type"]) {
       case "flashcard":
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(item["data"]["letter"],
-                style: TextStyle(fontSize: MediaQuery.of(context).size.width * 0.5, fontWeight: FontWeight.bold)),
-            const SizedBox(height: 20),
-            Text(item["data"]["hint"], style: const TextStyle(fontSize: 18, color: Colors.grey)),
-          ],
-        );
+        return FlashcardWidget(flashcardData: item["data"]);
       default:
         return const Text("Unknown item type", style: TextStyle(color: Colors.red));
     }

@@ -25,6 +25,9 @@ dependencies:
   firebase_ui_auth: ^1.16.1
   flutter_signin_button: ^2.0.0
 
+  flutter_tts: ^3.7.0  # Check for latest version on pub.dev
+  audioplayers: ^5.1.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
