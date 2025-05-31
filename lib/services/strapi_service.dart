@@ -1,8 +1,9 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import '../config.dart';
 
 class StrapiService {
-  final String baseUrl = "https://strapi-production-2cfc.up.railway.app/api";
+  final String baseUrl = kApiUrl;
 
   // Fetch Modules
   Future<List<Map<String, dynamic>>> fetchModules() async {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../services/firebase_auth_service.dart';
-import '../widgets/custom_textfield.dart';
-import '../widgets/primary_button.dart';
+import '../widgets/custom_textfields.dart';
+import '../widgets/custom_buttons.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart'; // ✅ Google Sign-In Button
 
 class SignupScreen extends StatefulWidget {
@@ -26,7 +26,7 @@ class _SignupScreenState extends State<SignupScreen> {
       final user = await _authService.signUpWithEmail(name, email, password);
 
       if (user != null) {
-        Navigator.pushNamedAndRemoveUntil(context, "/home", (route) => false);
+        Navigator.pushNamedAndRemoveUntil(context, "/welcome", (route) => false);
       }
     }
   }
@@ -34,7 +34,7 @@ class _SignupScreenState extends State<SignupScreen> {
   void _signUpWithGoogle() async {
     final user = await _authService.signInWithGoogle();
     if (user != null) {
-      Navigator.pushNamedAndRemoveUntil(context, "/home", (route) => false);
+      Navigator.pushNamedAndRemoveUntil(context, "/welcome", (route) => false);
     }
   }
 
@@ -52,14 +52,14 @@ class _SignupScreenState extends State<SignupScreen> {
               const SizedBox(height: 20),
 
               // ✅ Spaced input fields
-              CustomTextField(
+              LoginTextField(
                 controller: _nameController, 
                 label: "Name",
                 validator: (value) => value == null || value.trim().isEmpty ? "Name cannot be empty" : null,
               ),
               const SizedBox(height: 16), // ✅ Added spacing
 
-              CustomTextField(
+              LoginTextField(
                 controller: _emailController, 
                 label: "Email",
                 keyboardType: TextInputType.emailAddress, 
@@ -71,7 +71,7 @@ class _SignupScreenState extends State<SignupScreen> {
               ),
               const SizedBox(height: 16), // ✅ Added spacing
 
-              CustomTextField(
+              LoginTextField(
                 controller: _passwordController, 
                 label: "Password", 
                 obscureText: true,
@@ -93,7 +93,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     ),
                   ],
                 ),
-                child: PrimaryButton(label: "Create Account", onPressed: _signUp),
+                child: LoginButton(label: "Create Account", onPressed: _signUp),
               ),
 
               const SizedBox(height: 10),

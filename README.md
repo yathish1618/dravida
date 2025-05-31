@@ -47,6 +47,15 @@ lib/
 │   ├── mcq_question_widget.dart
 │   └── module_list.dart
 
+
+color codes - 
+/* CSS HEX */
+--berkeley-blue: #003366ff;
+--bone: #e0ddcfff;
+--isabelline: #f1f0eaff;
+--feldgrau: #627264ff;
+--pumpkin: #fe7f2dff;
+
 test@test.com
 test123
 

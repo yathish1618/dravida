@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../services/firebase_auth_service.dart';
-import '../widgets/custom_textfield.dart';
-import '../widgets/primary_button.dart';
+import '../widgets/custom_textfields.dart';
+import '../widgets/custom_buttons.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart'; // ✅ Google Sign-In Button
 
 class LoginScreen extends StatefulWidget {
@@ -23,7 +23,7 @@ class _LoginScreenState extends State<LoginScreen> {
       final password = _passwordController.text.trim();
       final user = await _authService.loginWithEmail(email, password);
       if (user != null) {
-        Navigator.pushNamedAndRemoveUntil(context, "/home", (route) => false); // Navigate to Home
+        Navigator.pushNamedAndRemoveUntil(context, "/welcome", (route) => false); // Navigate to Home
       }
     }
   }
@@ -31,7 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
   void _signUpWithGoogle() async {
     final user = await _authService.signInWithGoogle();
     if (user != null) {
-      Navigator.pushNamedAndRemoveUntil(context, "/home", (route) => false); // Navigate after Google sign-in
+      Navigator.pushNamedAndRemoveUntil(context, "/welcome", (route) => false); // Navigate after Google sign-in
     }
   }
 
@@ -49,7 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(height: 20),
 
               // ✅ Spaced input fields
-              CustomTextField(
+              LoginTextField(
                 controller: _emailController, 
                 label: "Email",
                 keyboardType: TextInputType.emailAddress, 
@@ -61,7 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               const SizedBox(height: 16), // ✅ Added spacing
 
-              CustomTextField(
+              LoginTextField(
                 controller: _passwordController, 
                 label: "Password", 
                 obscureText: true,
@@ -83,7 +83,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ],
                 ),
-                child: PrimaryButton(label: "Log In", onPressed: _login),
+                child: LoginButton(label: "Log In", onPressed: _login),
               ),
 
               const SizedBox(height: 10),

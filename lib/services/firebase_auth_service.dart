@@ -7,13 +7,15 @@ class FirebaseAuthService {
   // Email Signup with Name
   Future<User?> signUpWithEmail(String name, String email, String password) async {
     try {
-      UserCredential userCredential = await _auth.createUserWithEmailAndPassword(email: email, password: password);
+      // Create a user using email and password
+      UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
+          email: email, password: password);
 
-      // Update display name
+      // Update the display name of the newly created user
       await userCredential.user!.updateDisplayName(name);
       await userCredential.user!.reload(); // Refresh user info
 
-      return _auth.currentUser; // Return updated user
+      return _auth.currentUser; // Return the updated user
     } catch (e) {
       print("Error signing up: $e");
       return null;
@@ -23,7 +25,9 @@ class FirebaseAuthService {
   // Email Login
   Future<User?> loginWithEmail(String email, String password) async {
     try {
-      UserCredential userCredential = await _auth.signInWithEmailAndPassword(email: email, password: password);
+      // Sign in with email and password
+      UserCredential userCredential =
+          await _auth.signInWithEmailAndPassword(email: email, password: password);
       return userCredential.user;
     } catch (e) {
       print("Error logging in: $e");
@@ -34,15 +38,19 @@ class FirebaseAuthService {
   // Google Sign-In
   Future<User?> signInWithGoogle() async {
     try {
+      // Trigger the Google authentication flow
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-      if (googleUser == null) return null;
+      if (googleUser == null) return null; // Cancelled login
 
+      // Retrieve authentication details from Google
       final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+      // Create a new credential using the token and idToken from Google
       final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
 
+      // Use the credential to sign in with Firebase
       UserCredential userCredential = await _auth.signInWithCredential(credential);
       return userCredential.user;
     } catch (e) {
@@ -51,8 +59,21 @@ class FirebaseAuthService {
     }
   }
 
+  // *** NEW: Anonymous Sign-In for Skip Login functionality ***
+  Future<User?> signInAnonymously() async {
+    try {
+      // Sign in anonymously with Firebase's built-in method
+      UserCredential userCredential = await _auth.signInAnonymously();
+      return userCredential.user;
+    } catch (e) {
+      print("Error signing in anonymously: $e");
+      return null;
+    }
+  }
+
   // Logout
   Future<void> logout() async {
+    // Sign out from Firebase and, if needed, from Google as well.
     await _auth.signOut();
     await GoogleSignIn().signOut();
   }

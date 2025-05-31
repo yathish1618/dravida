@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class CustomTextField extends StatelessWidget {
+class LoginTextField extends StatelessWidget {
   final TextEditingController controller;
   final String label;
   final bool obscureText;
   final TextInputType keyboardType;
   final String? Function(String?)? validator; // ✅ Add validator parameter
 
-  const CustomTextField({
+  const LoginTextField({
     super.key,
     required this.controller,
     required this.label,

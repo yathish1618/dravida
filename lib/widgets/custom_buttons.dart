@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class PrimaryButton extends StatelessWidget {
+class LoginButton extends StatelessWidget {
   final String label;
   final VoidCallback onPressed;
 
-  const PrimaryButton({super.key, required this.label, required this.onPressed});
+  const LoginButton({super.key, required this.label, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +13,7 @@ class PrimaryButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.blueAccent,
+          backgroundColor: const Color(0xFF627264),
           foregroundColor: Colors.white,
           padding: const EdgeInsets.symmetric(vertical: 15),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
@@ -24,11 +24,11 @@ class PrimaryButton extends StatelessWidget {
   }
 }
 
-class PrimaryButtonWhite extends StatelessWidget {
+class LoginButtonWhite extends StatelessWidget {
   final String label;
   final VoidCallback onPressed;
 
-  const PrimaryButtonWhite({super.key, required this.label, required this.onPressed});
+  const LoginButtonWhite({super.key, required this.label, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -37,8 +37,8 @@ class PrimaryButtonWhite extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.white,
-          foregroundColor: Colors.blueAccent,
+          backgroundColor: const Color(0xFFFE7F2D),
+          foregroundColor: Colors.black,
           padding: const EdgeInsets.symmetric(vertical: 15),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         ),
