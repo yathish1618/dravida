@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'strapi_service.dart';
+import '../services/content_service.dart';
 
 class FirebaseProgressService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
   final User? _user = FirebaseAuth.instance.currentUser;
-  final StrapiService _strapiService = StrapiService(); // Use existing Strapi service
+  final ContentService _contentService = ContentService();
 
   // Fetch User Progress
   Future<Map<String, dynamic>> fetchProgress() async {
@@ -15,53 +15,53 @@ class FirebaseProgressService {
   }
 
   // ✅ Update User Progress and Unlock Next Level
-  Future<void> updateLevelProgress(String moduleId, String levelId, int itemsCompleted, int totalItems) async {
+  Future<void> updateLevelProgress(String moduleId, String levelId, int totalItems) async {
     if (_user == null) {
       print("❌ User is null. Cannot update progress.");
       return;
     }
 
-    final progress = (itemsCompleted.toDouble() / totalItems.toDouble()) * 100;
     print("🔹 Updating Firestore: Module ID: $moduleId, Level ID: $levelId");
 
-    // 🔹 Fetch Levels from Strapi
-    final List<Map<String, dynamic>> levelDocs = await _strapiService.fetchLevels(moduleId);
+    // ✅ Fetch all levels for the module to determine totalLevels
+    final levels = await _contentService.fetchLevels(moduleId);
+    final int totalLevels = levels.length;
 
-    // 🔹 Get current level order
-    final Map<String, dynamic> currentLevel = levelDocs.firstWhere(
-      (l) => l["id"].toString() == levelId,
-      orElse: () => {}
-    );
-    final int currentOrder = currentLevel["order"] ?? 0;
+    // ✅ Fetch user's current progress data
+    final progressData = await fetchProgress();
+    final moduleProgress = progressData["modules"]?[moduleId]?["levels"] ?? {};
 
-    // 🔍 Find the next level based on order
-    Map<String, dynamic>? nextLevel;
-    for (final level in levelDocs) {
-      if ((level["order"] ?? 0) > currentOrder) { // Now we compare properly
-        nextLevel = level;
-        break;
-      }
-    }
+    // ✅ Count levels that are unlocked
+    int levelsCompleted = moduleProgress.entries.where((entry) => entry.value["unlocked"] == true).length;
 
+    // ✅ Calculate overall progress (rounded percentage)
+    final int moduleProgressPercentage = (levelsCompleted / totalLevels * 100).round();
 
-    // ✅ Store progress for completed level
+    // ✅ Store progress for completed level and update module progress
     await _db.collection("user_progress").doc(_user.uid).set({
       "modules": {
         moduleId: {
           "levels": {
             levelId: {
-              "itemsCompleted": itemsCompleted,
               "totalItems": totalItems,
-              "progress": progress,
-              "unlocked": progress >= 100,
+              "progress": 100,
+              "unlocked": true,
             }
-          }
+          },
+          "totalLevels": totalLevels,
+          "levelsCompleted": levelsCompleted,
+          "progress": moduleProgressPercentage, // Rounded percentage
         }
       }
     }, SetOptions(merge: true));
 
+    print("✅ Progress updated: $levelsCompleted / $totalLevels levels completed ($moduleProgressPercentage%)");
+
+    // ✅ Fetch the next level for unlocking
+    final nextLevel = await _contentService.fetchNextLevel(moduleId, levelId);
+
     // ✅ Unlock next level if found
-    if (progress >= 100 && nextLevel != null) {
+    if (nextLevel != null) {
       final nextLevelId = nextLevel["id"].toString();
       print("🔹 Unlocking next level: $nextLevelId");
 
@@ -81,34 +81,51 @@ class FirebaseProgressService {
     }
   }
 
+  Future<int> fetchLevelProgress(String levelId) async {
+    if (_user == null) {
+      print("❌ User is null. Cannot fetch level progress.");
+      return 0;
+    }
 
-  // Generate progress report
-  Future<Map<String, dynamic>> generateProgressReport() async {
-    if (_user == null) return {};
-    final doc = await _db.collection("user_progress").doc(_user.uid).get();
-    if (!doc.exists) return {};
+    final progressData = await fetchProgress();
+    final modules = progressData["modules"] ?? {};
 
-    final data = doc.data() ?? {};
-    int totalLevels = 0, unlockedLevels = 0, totalItems = 0, completedItems = 0;
+    for (var moduleEntry in modules.entries) {
+      final levels = moduleEntry.value["levels"] ?? {};
+      if (levels.containsKey(levelId)) {
+        return (levels[levelId]["progress"] ?? 0).toInt();
+      }
+    }
 
-    data["modules"]?.forEach((moduleId, moduleData) {
-      moduleData["levels"]?.forEach((levelId, levelData) {
-        totalLevels++;
-        if (levelData["unlocked"] == true) unlockedLevels++;
-        int totalItemsCount = (levelData["totalItems"] ?? 0).toInt();
-        int completedItemsCount = (levelData["itemsCompleted"] ?? 0).toInt();
-
-        totalItems += totalItemsCount;
-        completedItems += completedItemsCount;
-      });
-    });
-
-    return {
-      "totalLevels": totalLevels,
-      "unlockedLevels": unlockedLevels,
-      "totalItems": totalItems,
-      "completedItems": completedItems,
-      "overallProgress": totalItems > 0 ? ((completedItems.toDouble() / totalItems.toDouble()) * 100) : 0.0,
-    };
+    return 0; // Level not found or no progress data
   }
+
+  Future<int> fetchModuleProgress(String moduleId) async {
+    if (_user == null) {
+      print("❌ User is null. Cannot fetch module progress.");
+      return 0;
+    }
+
+    final progressData = await fetchProgress();
+    final moduleProgress = progressData["modules"]?[moduleId] ?? {};
+
+    return (moduleProgress["progress"] ?? 0).toInt(); // Return module progress percentage
+  }
+
+
+  // ✅ Clear All User Progress
+  Future<void> clearProgressData() async {
+    if (_user == null) {
+      print("❌ User is null. Cannot clear progress.");
+      return;
+    }
+
+    try {
+      await _db.collection("user_progress").doc(_user.uid).delete();
+      print("✅ User progress data cleared successfully!");
+    } catch (e) {
+      print("❌ Error clearing progress data: $e");
+    }
+  }
+
 }

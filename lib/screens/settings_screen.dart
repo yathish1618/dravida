@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../widgets/bottom_nav_bar.dart';
+import '../services/firebase_progress_service.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -20,6 +21,12 @@ class SettingsScreen extends StatelessWidget {
             const SizedBox(height: 10),
             Text("Email: ${user?.email ?? 'Unknown'}", style: const TextStyle(fontSize: 20)),
             const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () => _showConfirmationDialog(context),
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+              child: const Text("Clear All Data", style: TextStyle(color: Colors.white)),
+            ),
+
             ElevatedButton(
               onPressed: () async {
                 await FirebaseAuth.instance.signOut();
@@ -46,4 +53,43 @@ class SettingsScreen extends StatelessWidget {
       Navigator.pushNamed(context, "/settings");
     }
   }
+
+  void _showConfirmationDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Reset Progress"),
+          content: const Text("Are you sure you want to reset all of your progress data?"),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context), // Cancel action
+              child: const Text("Cancel"),
+            ),
+            TextButton(
+              onPressed: () {
+                _clearProgressData(context);
+                Navigator.pop(context); // Close dialog
+              },
+              child: const Text("Yes"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _clearProgressData(BuildContext context) async {
+    try {
+      await FirebaseProgressService().clearProgressData();
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Progress data cleared successfully!")),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Error clearing data: $e")),
+      );
+    }
+  }
+
 }

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:marquee/marquee.dart';
-import '../services/strapi_service.dart';
+import '../services/content_service.dart';
 import '../widgets/bottom_nav_bar.dart';
-import '../config.dart'; // Contains kBaseUrl and kApiUrl constants
+import '../config.dart';
+import '../services/firebase_progress_service.dart';
 
 class ModuleScreen extends StatefulWidget {
   const ModuleScreen({super.key});
@@ -12,21 +13,28 @@ class ModuleScreen extends StatefulWidget {
 }
 
 class _ModuleScreenState extends State<ModuleScreen> {
-  final StrapiService _strapiService = StrapiService();
+  final ContentService _contentService = ContentService();
+  final FirebaseProgressService _progressService = FirebaseProgressService();
+  Map<String, dynamic> _progress = {};
   List<Map<String, dynamic>> _modules = [];
 
   @override
   void initState() {
     super.initState();
     _fetchModules();
+    _fetchProgress();
   }
 
   void _fetchModules() async {
-    final modules = await _strapiService.fetchModules();
-    modules.sort((a, b) => (a["order"] ?? 0).compareTo(b["order"] ?? 0));
+    final modules = await _contentService.fetchModules();
     setState(() {
       _modules = modules;
     });
+  }
+
+  void _fetchProgress() async {
+    final progress = await _progressService.fetchProgress();
+    setState(() => _progress = progress);
   }
 
   @override
@@ -65,7 +73,8 @@ class _ModuleScreenState extends State<ModuleScreen> {
                 itemCount: _modules.length,
                 itemBuilder: (context, index) {
                   final module = _modules[index];
-                  return _buildModuleCard(module);
+                  final moduleProgress = (_progress["modules"]?[module["id"]]?["progress"] ?? 0).toDouble();
+                  return _buildModuleCard(module,moduleProgress);
                 },
               ),
       ),
@@ -76,16 +85,16 @@ class _ModuleScreenState extends State<ModuleScreen> {
     );
   }
 
-  Widget _buildModuleCard(Map<String, dynamic> module) {
+  Widget _buildModuleCard(Map<String, dynamic> module,moduleProgress) {
     String? imageUrl;
-    if (module["image"] != null && module["image"] is Map) {
-      imageUrl = module["image"]["url"]?.toString();
-      if (imageUrl != null && imageUrl.isNotEmpty && imageUrl.startsWith("/")) {
-        imageUrl = kBaseUrl + imageUrl;
+    if (module["image"] != null) {
+      imageUrl = module["image"]?.toString();
+      if (imageUrl != null && imageUrl.isNotEmpty) {
+        imageUrl = assetsBasePath + imageUrl;
       }
     }
 
-    double progressValue = (module["progress"] ?? 0) / 100;
+    double progressValue = (moduleProgress ?? 0) / 100;
     int progressPercent = (progressValue * 100).toInt();
 
     return Card(
@@ -106,7 +115,7 @@ class _ModuleScreenState extends State<ModuleScreen> {
                 child: Container(
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: NetworkImage(imageUrl),
+                      image: AssetImage(imageUrl),
                       fit: BoxFit.cover,
                       alignment: Alignment.topCenter,
                     ),

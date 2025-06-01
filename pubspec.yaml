@@ -1,5 +1,5 @@
 name: dravida
-description: "A new Flutter project."
+description: "A Kannada Learning App."
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
 version: 1.0.0+1
@@ -25,8 +25,9 @@ dependencies:
   firebase_ui_auth: ^1.16.1
   flutter_signin_button: ^2.0.0
   marquee: ^2.2.3  # Check for the latest version on pub.dev
+  supabase_flutter: ^2.0.0
+  postgres: ^2.5.0
 
-  flutter_tts: ^3.7.0  # Check for latest version on pub.dev
   audioplayers: ^5.1.0
 
 dev_dependencies:
@@ -35,6 +36,13 @@ dev_dependencies:
   flutter_lints: ^5.0.0
   flutter_launcher_icons: ^0.9.2
 
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/logo.png"
+  adaptive_icon_background: "#ffffff" # Background color for Android Adaptive Icons
+  adaptive_icon_foreground: "assets/images/logo.png"
+  remove_alpha_ios: true # Ensures iOS icons are correctly formatted
 
 flutter:
   uses-material-design: true
@@ -44,11 +52,5 @@ flutter:
         - asset: assets/fonts/NotoSerifKannada-Regular.ttf
   assets:
     - assets/images/
-
-flutter_icons:
-  android: true
-  ios: true
-  image_path: "assets/images/logo.png"
-  adaptive_icon_background: "#ffffff" # Background color for Android Adaptive Icons
-  adaptive_icon_foreground: "assets/images/logo.png"
-  remove_alpha_ios: true # Ensures iOS icons are correctly formatted
+    - assets/content/alphabets/
+    - assets/content/basic_words1/

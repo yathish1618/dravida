@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../services/strapi_service.dart';
+import '../services/content_service.dart';
 import '../services/firebase_progress_service.dart';
 import '../widgets/bottom_nav_bar.dart';
 
@@ -12,7 +12,7 @@ class LevelScreen extends StatefulWidget {
 }
 
 class _LevelScreenState extends State<LevelScreen> {
-  final StrapiService _strapiService = StrapiService();
+  final ContentService _contentService = ContentService();
   final FirebaseProgressService _progressService = FirebaseProgressService();
   List<Map<String, dynamic>> _levels = [];
   Map<String, dynamic> _progress = {};
@@ -26,8 +26,7 @@ class _LevelScreenState extends State<LevelScreen> {
   }
 
   void _fetchLevels() async {
-    final levels = await _strapiService.fetchLevels(widget.moduleId);
-    levels.sort((a, b) => (a["order"] ?? 0).compareTo(b["order"] ?? 0));
+    final levels = await _contentService.fetchLevels(widget.moduleId);
     setState(() => _levels = levels);
   }
 
@@ -50,7 +49,12 @@ class _LevelScreenState extends State<LevelScreen> {
         title: const Text("Levels"),
         backgroundColor: const Color(0xffe0ddcf),
         foregroundColor: const Color(0xff003366),
-        leading: const BackButton(), // Restoring back button
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pushReplacementNamed(context, "/modules"); // Ensure a full refresh
+          },
+        ),
       ),
       body: Container(
         decoration: BoxDecoration(
@@ -89,13 +93,13 @@ class _LevelScreenState extends State<LevelScreen> {
   }
 
   Widget _buildLevelCard(Map<String, dynamic> level, bool unlocked, double progress) {
-    String type = level["type"] ?? "default";
+    String type = level["level_type"] ?? "default";
     Color typeColor = _getTypeColor(type);
     IconData typeIcon = _getTypeIcon(type);
 
     return Card(
       elevation: 3,
-      margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+      margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
       child: ListTile(
         leading: Container(
           width: 50,
@@ -133,7 +137,7 @@ class _LevelScreenState extends State<LevelScreen> {
       case "quiz":
         return const Color(0xfffe7f2d);
       case "practice":
-        return const Color(0xffe0ddcf);
+        return Colors.blueAccent;
       case "checkpoint":
         return const Color(0xff627264);
       default:

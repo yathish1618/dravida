@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'firebase_options.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'screens/initial_screen.dart';  // A simple auth gatekeeper widget.
 import 'screens/signup_screen.dart';
@@ -13,10 +14,16 @@ import 'screens/level_screen.dart';
 import 'screens/settings_screen.dart';
 import 'screens/item_screen.dart';
 
+import 'config.dart';
+
 void main() async {
   // Initialize Flutter binding & Firebase.
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await Supabase.initialize(
+    url: supabaseURL,
+    anonKey: supabaseAnon,
+  );
   runApp(const DravidaApp());
 }
 

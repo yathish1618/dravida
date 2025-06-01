@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
+import '../config.dart';
 
 class FlashcardWidget extends StatefulWidget {
   final Map<String, dynamic> flashcardData;
@@ -30,8 +31,8 @@ class _FlashcardWidgetState extends State<FlashcardWidget> {
   }
 
   void _setAudioUrl() {
-    if (widget.flashcardData["audio"] != null && widget.flashcardData["audio"]["url"] != null) {
-      _audioUrl = "https://strapi-production-2cfc.up.railway.app${widget.flashcardData["audio"]["url"]}";
+    if (widget.flashcardData["audio"] != null) {
+      _audioUrl = "$assetsBasePath${widget.flashcardData["audio"]}";
       print("Audio URL Set: $_audioUrl");
     } else {
       print("Audio field missing in flashcard data");

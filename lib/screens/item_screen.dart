@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../services/strapi_service.dart';
+// import '../services/strapi_service.dart';
+import '../services/content_service.dart';
 import '../services/firebase_progress_service.dart';
 import '../widgets/flashcard_widget.dart';
 
@@ -13,7 +14,8 @@ class ItemScreen extends StatefulWidget {
 }
 
 class _ItemScreenState extends State<ItemScreen> {
-  final StrapiService _strapiService = StrapiService();
+  // final StrapiService _strapiService = StrapiService();
+  final ContentService _contentService = ContentService();
   final FirebaseProgressService _progressService = FirebaseProgressService();
   
   List<Map<String, dynamic>> _items = [];
@@ -26,21 +28,7 @@ class _ItemScreenState extends State<ItemScreen> {
   }
 
   void _fetchItems() async {
-    final items = await _strapiService.fetchItems(widget.levelId);
-    final flashcards = await _strapiService.fetchFlashcardsWithAudio();
-
-    items.sort((a, b) => (a["order"] ?? 0).compareTo(b["order"] ?? 0));
-
-    for (var item in items) {
-      if (item["type"] == "flashcard") {
-        final flashcard = flashcards.firstWhere(
-          (fc) => fc["letter"] == item["data"]["letter"],
-          orElse: () => {},
-        );
-        item["data"]["audio"] = flashcard["audio"];
-      }
-    }
-
+    final items = await _contentService.fetchItems(widget.levelId);
     setState(() {
       _items = items;
     });
@@ -52,7 +40,7 @@ class _ItemScreenState extends State<ItemScreen> {
         _currentIndex++;
       });
     } else {
-      await _progressService.updateLevelProgress(widget.moduleId, widget.levelId, _items.length, _items.length);
+      await _progressService.updateLevelProgress(widget.moduleId, widget.levelId, _items.length);
       Navigator.pushReplacementNamed(context, "/levels", arguments: {"moduleId": widget.moduleId});
     }
   }
@@ -143,7 +131,7 @@ class _ItemScreenState extends State<ItemScreen> {
     int totalItems = _items.length;
 
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.symmetric(vertical: 20),
       child: Center(
         child: SizedBox(
           width: screenWidth, // Total width spans 90% of screen
@@ -152,10 +140,10 @@ class _ItemScreenState extends State<ItemScreen> {
             children: List.generate(totalItems, (index) {
               return Expanded( // Forces each segment to proportionally adjust
                 child: Container(
-                  height: 8,
+                  height: 15,
                   margin: const EdgeInsets.symmetric(horizontal: 1),
                   decoration: BoxDecoration(
-                    color: index <= _currentIndex ? Colors.blueAccent : Colors.grey[300],
+                    color: index <= _currentIndex ? const Color(0xfffe7f2d) : Colors.grey[300],
                     borderRadius: BorderRadius.horizontal(
                       left: index == 0 ? const Radius.circular(6) : Radius.zero,
                       right: index == totalItems - 1 ? const Radius.circular(6) : Radius.zero,
@@ -171,9 +159,9 @@ class _ItemScreenState extends State<ItemScreen> {
   }
 
   Widget _renderItem(Map<String, dynamic> item) {
-    switch (item["type"]) {
+    switch (item["item_type"]) {
       case "flashcard":
-        return FlashcardWidget(flashcardData: item["data"]);
+        return FlashcardWidget(flashcardData: item["item_metadata"]);
       default:
         return const Text("Unknown item type", style: TextStyle(color: Colors.red));
     }
