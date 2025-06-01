@@ -37,7 +37,7 @@ class _ModuleScreenState extends State<ModuleScreen> {
     setState(() => _progress = progress);
   }
 
-  @override
+    @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -49,7 +49,7 @@ class _ModuleScreenState extends State<ModuleScreen> {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/images/welcome_banner.png"),
+            image: NetworkImage("$imageAssetsBasePath""welcome_banner.png"),
             repeat: ImageRepeat.repeat,
             scale: 2.0,
             filterQuality: FilterQuality.high,
@@ -86,11 +86,13 @@ class _ModuleScreenState extends State<ModuleScreen> {
   }
 
   Widget _buildModuleCard(Map<String, dynamic> module,moduleProgress) {
+    
+    // imagePath = module["image"];
     String? imageUrl;
     if (module["image"] != null) {
       imageUrl = module["image"]?.toString();
       if (imageUrl != null && imageUrl.isNotEmpty) {
-        imageUrl = assetsBasePath + imageUrl;
+        imageUrl = contentAssetsBasePath + imageUrl;
       }
     }
 
@@ -115,7 +117,7 @@ class _ModuleScreenState extends State<ModuleScreen> {
                 child: Container(
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage(imageUrl),
+                      image: NetworkImage(imageUrl),
                       fit: BoxFit.cover,
                       alignment: Alignment.topCenter,
                     ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../widgets/custom_buttons.dart';
 import '../services/firebase_auth_service.dart'; // Import authentication service
+import '../config.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -38,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
         decoration: BoxDecoration(
           // Apply a tessellated background image with an opacity filter.
           image: DecorationImage(
-            image: AssetImage("assets/images/welcome_banner.png"),
+            image: NetworkImage("$imageAssetsBasePath""welcome_banner.png"),
             repeat: ImageRepeat.repeat,
             scale: 2.0,
             filterQuality: FilterQuality.high,

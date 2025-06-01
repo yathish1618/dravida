@@ -1,4 +1,6 @@
-const String assetsBasePath = 'assets/content/';
+final String contentAssetsBasePath = 'https://yathish1618.github.io/dravida/assets/content/';
+final String imageAssetsBasePath = 'https://yathish1618.github.io/dravida/assets/images/';
+
 
 const String supabaseURL = 'https://ggwgiqoyhugbuvbgpyay.supabase.co';
 const String supabaseAnon = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdnd2dpcW95aHVnYnV2YmdweWF5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDg3MTI5ODUsImV4cCI6MjA2NDI4ODk4NX0.RzeyBg8yYKPiXuONMb669LQAJUtbGdU9kXx2YqfYVx8';
@@ -25,3 +27,5 @@ const String supabaseAnon = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdX
 // --isabelline: #f1f0eaff;
 // --feldgrau: #627264ff;
 // --pumpkin: #fe7f2dff;
+
+// https://docs.google.com/spreadsheets/d/1PVAmUOGBT_Kz-PBEtgOozoNC4Hb2lUYo0HR_nYzMtpk/edit?gid=403947382#gid=403947382

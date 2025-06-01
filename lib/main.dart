@@ -33,6 +33,7 @@ class DravidaApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'Dravida',
       debugShowCheckedModeBanner: false,
       // Always start at the root route "/"
       initialRoute: "/",

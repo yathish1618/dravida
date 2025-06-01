@@ -27,6 +27,7 @@ dependencies:
   marquee: ^2.2.3  # Check for the latest version on pub.dev
   supabase_flutter: ^2.0.0
   postgres: ^2.5.0
+  flip_card: ^0.6.0
 
   audioplayers: ^5.1.0
 
@@ -51,6 +52,5 @@ flutter:
       fonts:
         - asset: assets/fonts/NotoSerifKannada-Regular.ttf
   assets:
+    - assets/content/
     - assets/images/
-    - assets/content/alphabets/
-    - assets/content/basic_words1/

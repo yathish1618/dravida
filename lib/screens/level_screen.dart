@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../services/content_service.dart';
 import '../services/firebase_progress_service.dart';
 import '../widgets/bottom_nav_bar.dart';
+import '../config.dart';
 
 class LevelScreen extends StatefulWidget {
   final String moduleId;
@@ -59,7 +60,7 @@ class _LevelScreenState extends State<LevelScreen> {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/images/welcome_banner.png"),
+            image: NetworkImage("$imageAssetsBasePath""welcome_banner.png"),
             repeat: ImageRepeat.repeat,
             scale: 2.0,
             filterQuality: FilterQuality.high,
@@ -99,6 +100,7 @@ class _LevelScreenState extends State<LevelScreen> {
 
     return Card(
       elevation: 3,
+      color: const Color(0xffe0ddcf), // light gray
       margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
       child: ListTile(
         leading: Container(

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-// import '../services/strapi_service.dart';
 import '../services/content_service.dart';
 import '../services/firebase_progress_service.dart';
 import '../widgets/flashcard_widget.dart';
+import '../widgets/flashcard_group_widget.dart';
+import '../widgets/mcqs_widget.dart';
+import '../config.dart';
 
 class ItemScreen extends StatefulWidget {
   final String levelId;
@@ -14,7 +16,6 @@ class ItemScreen extends StatefulWidget {
 }
 
 class _ItemScreenState extends State<ItemScreen> {
-  // final StrapiService _strapiService = StrapiService();
   final ContentService _contentService = ContentService();
   final FirebaseProgressService _progressService = FirebaseProgressService();
   
@@ -38,39 +39,12 @@ class _ItemScreenState extends State<ItemScreen> {
     if (_currentIndex < _items.length - 1) {
       setState(() {
         _currentIndex++;
+        _isCurrentItemCompleted = false; // 👈 Reset here
       });
     } else {
       await _progressService.updateLevelProgress(widget.moduleId, widget.levelId, _items.length);
       Navigator.pushReplacementNamed(context, "/levels", arguments: {"moduleId": widget.moduleId});
     }
-  }
-
-  void _confirmExit() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text("Exit Learning Session"),
-          content: const Text("Are you sure you want to exit? Current progress within the level will be lost."),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context), // Close dialog
-              child: const Text("No"),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-                Navigator.pushReplacementNamed(
-                  context, "/levels",
-                  arguments: {"moduleId": widget.moduleId}, // Navigate back to LevelScreen
-                );
-              },
-              child: const Text("Yes"),
-            ),
-          ],
-        );
-      },
-    );
   }
 
 
@@ -85,19 +59,19 @@ class _ItemScreenState extends State<ItemScreen> {
         foregroundColor: const Color(0xff003366),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: _confirmExit, // Confirmation popup before going back
+          onPressed: _confirmExit,
         ),
         actions: [
           IconButton(
             icon: const Icon(Icons.close),
-            onPressed: _confirmExit, // Cross button also triggers exit confirmation
+            onPressed: _confirmExit,
           ),
         ],
       ),
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/images/welcome_banner.png"),
+            image: NetworkImage("$imageAssetsBasePath""welcome_banner.png"),
             repeat: ImageRepeat.repeat,
             scale: 2.0,
             filterQuality: FilterQuality.high,
@@ -111,11 +85,30 @@ class _ItemScreenState extends State<ItemScreen> {
         child: Column(
           children: [
             _buildProgressIndicator(),
-            Expanded(child: _renderItem(_items[_currentIndex])),
+            Expanded(
+              child: AnimatedSwitcher(
+                duration: const Duration(milliseconds: 400),
+                transitionBuilder: (child, animation) {
+                  return SlideTransition(
+                    position: Tween<Offset>(
+                      begin: const Offset(1, 0),
+                      end: Offset.zero,
+                    ).animate(animation),
+                    child: child,
+                  );
+                },
+                child: _buildItemWidget(_items[_currentIndex]),
+              ),
+            ),
+
             Padding(
               padding: const EdgeInsets.only(bottom: 20),
               child: ElevatedButton(
-                onPressed: _nextItem,
+                onPressed: _isCurrentItemCompleted ? _nextItem : null, // ❌ disables if not done,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xfffe7f2d),
+                  foregroundColor: Colors.black,
+                ),
                 child: const Text("Continue"),
               ),
             ),
@@ -125,20 +118,60 @@ class _ItemScreenState extends State<ItemScreen> {
     );
   }
 
-  /// Redesigned progress bar with step indicators
+  bool _isCurrentItemCompleted = false;
+
+  void _onItemCompleted() {
+    setState(() {
+      _isCurrentItemCompleted = true;
+    });
+  }
+
+
+  Widget _buildItemWidget(Map<String, dynamic> item) {
+    final itemType = item["item_type"];
+    final metadata = item["item_metadata"];
+
+    switch (itemType) {
+      case "flashcard":
+        return FlashcardWidget(
+          key: ValueKey<int>(_currentIndex),
+          flashcardData: metadata,
+          onComplete: _onItemCompleted, // ✅
+        );
+      case "flashcard_group":
+        return FlashcardGroupWidget(
+          key: ValueKey<int>(_currentIndex),
+          flashcardData: metadata,
+          onComplete: _onItemCompleted, // ✅
+        );
+      case "mcq":
+        return MCQsWidget(
+          key: ValueKey<int>(_currentIndex),
+          mcqData: metadata,
+          onComplete: _onItemCompleted, // ✅
+        );
+      default:
+        return Center(
+          key: ValueKey<int>(_currentIndex),
+          child: const Text("Unsupported item type"),
+        );
+    }
+  }
+
+  /// Animated progress bar
   Widget _buildProgressIndicator() {
-    double screenWidth = MediaQuery.of(context).size.width * 0.9; // 90% screen width
+    double screenWidth = MediaQuery.of(context).size.width * 0.9; 
     int totalItems = _items.length;
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 20),
       child: Center(
         child: SizedBox(
-          width: screenWidth, // Total width spans 90% of screen
+          width: screenWidth,
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween, // Even spacing across width
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: List.generate(totalItems, (index) {
-              return Expanded( // Forces each segment to proportionally adjust
+              return Expanded(
                 child: Container(
                   height: 15,
                   margin: const EdgeInsets.symmetric(horizontal: 1),
@@ -158,12 +191,28 @@ class _ItemScreenState extends State<ItemScreen> {
     );
   }
 
-  Widget _renderItem(Map<String, dynamic> item) {
-    switch (item["item_type"]) {
-      case "flashcard":
-        return FlashcardWidget(flashcardData: item["item_metadata"]);
-      default:
-        return const Text("Unknown item type", style: TextStyle(color: Colors.red));
-    }
+  void _confirmExit() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Exit Learning Session"),
+          content: const Text("Are you sure you want to exit? Current progress within the level will be lost."),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text("No"),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.pushReplacementNamed(context, "/levels", arguments: {"moduleId": widget.moduleId});
+              },
+              child: const Text("Yes"),
+            ),
+          ],
+        );
+      },
+    );
   }
 }
