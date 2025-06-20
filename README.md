@@ -59,18 +59,10 @@ color codes -
 test@test.com
 test123
 
-strapi cms + postgres db - deployed on railway
-https://strapi-production-2cfc.up.railway.app/
-git branch is main
-railway run npm run build
-railway run npm run develop
-git pushes will auto-trigger strapi deployment update :)
-yath*********@gmail.com
-Yathish@123
+supabase postgres
 
 firebase deployment of webapp - 
 https://dravida-99dda.web.app/
-flutter changes have to be deployed to firebase (git pushes won't auto trigger)
 flutter build web
 firebase deploy --only "hosting"
 
