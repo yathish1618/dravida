@@ -39,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
         decoration: BoxDecoration(
           // Apply a tessellated background image with an opacity filter.
           image: DecorationImage(
-            image: NetworkImage("$imageAssetsBasePath""welcome_banner.png"),
+            image: NetworkImage("$imageAssetsBasePath""$backgroundBanner"),
             repeat: ImageRepeat.repeat,
             scale: 2.0,
             filterQuality: FilterQuality.high,

@@ -21,7 +21,8 @@ class SettingsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Settings"),
-        backgroundColor: const Color(0xffe0ddcf),
+        centerTitle: true,
+        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         foregroundColor: const Color(0xff003366),
         elevation: 0,
       ),

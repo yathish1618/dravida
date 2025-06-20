@@ -1,5 +1,7 @@
 final String contentAssetsBasePath = 'https://yathish1618.github.io/dravida/assets/content/';
 final String imageAssetsBasePath = 'https://yathish1618.github.io/dravida/assets/images/';
+// final String imageAssetsBasePath = 'assets/images/';
+final String backgroundBanner = 'welcome_banner1.png';
 
 
 const String supabaseURL = 'https://ggwgiqoyhugbuvbgpyay.supabase.co';

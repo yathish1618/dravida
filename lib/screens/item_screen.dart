@@ -9,7 +9,8 @@ import '../config.dart';
 class ItemScreen extends StatefulWidget {
   final String levelId;
   final String moduleId;
-  const ItemScreen({super.key, required this.levelId, required this.moduleId});
+  final String levelTitle;
+  const ItemScreen({super.key, required this.levelId, required this.moduleId, required this.levelTitle});
 
   @override
   _ItemScreenState createState() => _ItemScreenState();
@@ -54,8 +55,9 @@ class _ItemScreenState extends State<ItemScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Learning Session"),
-        backgroundColor: const Color(0xffe0ddcf),
+        title: Text(widget.levelTitle),
+        centerTitle: true,
+        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         foregroundColor: const Color(0xff003366),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
@@ -71,7 +73,7 @@ class _ItemScreenState extends State<ItemScreen> {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: NetworkImage("$imageAssetsBasePath""welcome_banner.png"),
+            image: NetworkImage("$imageAssetsBasePath""$backgroundBanner"),
             repeat: ImageRepeat.repeat,
             scale: 2.0,
             filterQuality: FilterQuality.high,

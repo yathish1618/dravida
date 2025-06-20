@@ -20,7 +20,7 @@ class _WelcomeScreen extends State<WelcomeScreen> {
     
     // Delay for 2 seconds, then fade out the content,
     // followed by navigating to the modules screen after an additional 500ms.
-    Future.delayed(const Duration(seconds: 3), () {
+    Future.delayed(const Duration(seconds: 2), () {
       setState(() {
         _isVisible = false;
       });
@@ -37,7 +37,7 @@ class _WelcomeScreen extends State<WelcomeScreen> {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: NetworkImage("$imageAssetsBasePath""welcome_banner.png"),
+            image: NetworkImage("$imageAssetsBasePath""$backgroundBanner"),
             repeat: ImageRepeat.repeat,
             scale: 2.0,
             filterQuality: FilterQuality.high,

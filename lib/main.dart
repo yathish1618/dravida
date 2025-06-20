@@ -77,16 +77,22 @@ class DravidaApp extends StatelessWidget {
             return MaterialPageRoute(
                 builder: (context) => LevelScreen(moduleId: args["moduleId"]));
           case "/items":
-            // Extract arguments for items.
-            final args = settings.arguments as Map<String, dynamic>?;
-            if (args == null ||
-                !args.containsKey("levelId") ||
-                !args.containsKey("moduleId")) {
-              return MaterialPageRoute(builder: (context) => const ModuleScreen());
-            }
-            return MaterialPageRoute(
-                builder: (context) => ItemScreen(
-                    levelId: args["levelId"], moduleId: args["moduleId"]));
+          // Extract arguments for items.
+          final args = settings.arguments as Map<String, dynamic>?;
+          if (args == null ||
+              !args.containsKey("levelId") ||
+              !args.containsKey("moduleId") ||
+              !args.containsKey("levelTitle")) {
+            return MaterialPageRoute(builder: (context) => const ModuleScreen());
+          }
+          return MaterialPageRoute(
+            builder: (context) => ItemScreen(
+              levelId: args["levelId"],
+              moduleId: args["moduleId"],
+              levelTitle: args["levelTitle"],
+            ),
+          );
+
           default:
             // For unknown routes, redirect to HomeScreen.
             return MaterialPageRoute(builder: (context) => const HomeScreen());

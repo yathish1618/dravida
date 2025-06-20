@@ -42,14 +42,15 @@ class _ModuleScreenState extends State<ModuleScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Modules"),
+        centerTitle: true,
         automaticallyImplyLeading: false,
-        backgroundColor: const Color(0xffe0ddcf),
+        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         foregroundColor: const Color(0xff003366),
       ),
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: NetworkImage("$imageAssetsBasePath""welcome_banner.png"),
+            image: NetworkImage("$imageAssetsBasePath""$backgroundBanner"),
             repeat: ImageRepeat.repeat,
             scale: 2.0,
             filterQuality: FilterQuality.high,
@@ -105,11 +106,25 @@ class _ModuleScreenState extends State<ModuleScreen> {
       clipBehavior: Clip.antiAlias,
       child: InkWell(
         borderRadius: BorderRadius.circular(12),
-        onTap: () => Navigator.pushNamed(
-          context,
-          "/levels",
-          arguments: {"moduleId": module["id"].toString()},
-        ),
+        onTap: () {
+          print("Module status: ${module["status"]}");
+          if (module["status"] == "0") {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text("This module is Coming Soon"),
+                backgroundColor: Colors.orange,
+                duration: Duration(seconds: 2),
+              ),
+            );
+          } else {
+            Navigator.pushNamed(
+              context,
+              "/levels",
+              arguments: {"moduleId": module["id"].toString()},
+            );
+          }
+        },
+
         child: Stack(
           children: [
             if (imageUrl != null && imageUrl.isNotEmpty)

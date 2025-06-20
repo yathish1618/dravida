@@ -7,7 +7,7 @@ class MCQsWidget extends StatefulWidget {
   final Map<String, dynamic> mcqData;
   final VoidCallback onComplete;
 
-  const MCQsWidget({Key? key, required this.mcqData, required this.onComplete}) : super(key: key);
+  const MCQsWidget({super.key, required this.mcqData, required this.onComplete});
 
   @override
   State<MCQsWidget> createState() => _MCQsWidgetState();
